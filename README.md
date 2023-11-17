@@ -35,8 +35,8 @@ CC=cl CXX=cl cmake -B build64 \
 cd build64
 make install
 ```
-Should be fine with mingw64 and clang too (I haven't bothered trying these as I was already using msvc-wine
-for building Revive).
+Should be fine with [WinGW-w64](https://www.mingw-w64.org/) using gcc or clang too, although I haven't bothered
+trying these as I was already using msvc-wine for building Revive).
 
 # Logs
 
@@ -49,7 +49,7 @@ Sleeping for 20s to allow tracing or debugging attachment...
 success: vr::VR_Init(&err, vr::VRApplication_Scene) = 0
 failure: vr::VRInput()->SetActionManifestPath("C:\Revive\Input\action_manifest.json") = 4
 ```
-The steam proton logs complain `SetActionManifestPath requires an absolute path. 'ð¶/' is not absolute.`, so
+The steam proton logs complain _SetActionManifestPath requires an absolute path. 'ð¶/' is not absolute._, so
 the path is definitely getting munged somehow along the way.
 ```
 01c4:trace:vrclient:DllMain (0x7f1fb1970000, 1, (nil))
@@ -110,8 +110,8 @@ Fri Nov 17 2023 05:54:01.930713 [Error] - [Input] SetActionManifestPath requires
 
 I also discovered that your SteamVR version needs to match you OpenVR version of the `VR_Init` call will fail.
 This means the (much better performaing for me at least) linux_v1.14 SteamVR beta will not work with programs
-compiled against the newest OpenVR releases. This includes this, although, for no good reason. Feel free to
-revert the openvr submodule to an earlier version.
+compiled against the newest OpenVR releases such as this one. Feel free to revert the openvr submodule to an
+earlier version to get around this.
 
 As a full disclaimer, I have also been testing under
 [GE-Proton8-23](https://github.com/GloriousEggroll/proton-ge-custom/releases) as I needed this for other reasons
